@@ -1,7 +1,7 @@
 {
-  "name": "front-dev-server",
+  "name": "poke-calc",
   "version": "1.0.0",
-  "description": "フロントエンドの汎用開発環境",
+  "description": "PokeCalcを作り直す",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
