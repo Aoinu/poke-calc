@@ -41,7 +41,8 @@ module.exports = {
       new webpack.ProvidePlugin({
           jQuery: "jquery",
           $: "jquery",
-          jquery: "jquery"
+          jquery: "jquery",
+          angluar: "angluar"
       })
     ],
 
@@ -95,7 +96,8 @@ module.exports = {
       new webpack.ProvidePlugin({
           jQuery: "jquery",
           $: "jquery",
-          jquery: "jquery"
+          jquery: "jquery",
+          angluar: "angluar"
       })
     ],
 
