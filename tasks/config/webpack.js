@@ -42,7 +42,7 @@ module.exports = {
           jQuery: "jquery",
           $: "jquery",
           jquery: "jquery",
-          angluar: "angluar"
+          anguluar: "anguluar"
       })
     ],
 

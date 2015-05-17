@@ -8,7 +8,7 @@ var config           = require("../../config");
 
 gulp.task("webpack-dev-server", function(callback) {
   // Start a webpack-dev-server
-  new WebpackDevServer(webpack(webpackConfig), {
+  new WebpackDevServer(webpack(webpackConfig.dev), {
     // server and middleware options
     watchDelay : 300,
     hot        : true,

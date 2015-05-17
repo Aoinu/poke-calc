@@ -1,4 +1,4 @@
-pc = angluar.module 'poke-calc',[]
+pc = angular.module 'poke-calc',[]
 pc.factory 'pokeData',->
   return {
     pokeName: [
@@ -1663,3 +1663,5 @@ pc.factory 'pokeData',->
       [1.0,1.0,1.0,1.0,1.0]
     ]
   }
+
+module.exports = pc

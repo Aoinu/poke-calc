@@ -1,7 +1,33 @@
 extends ./layout.jade
 
-block body(ng-app='poke-calc')
-  p Hello Jade!
+block styles
+  link(rel='stylesheet',href='/css/angular-material.min.css')
+
+block body
+  div(ng-app='myApp',ng-controller='poke-calcController')
+    h4 Name
+      md-autocomplete(md-delay=500,md-selected-item='pokeModel.name',md-search-text='searchText',md-items='poke in getMatcheNames(searchText)',md-item-text='poke',md-selected-item-change='updateBaseStats()',placeholder='Name')
+        span(md-highlight-text='searchText') {{poke}}
+    h4 BaseStats
+      ul
+        li(ng-repeat='bs in pokeModel.baseStats track by $index')
+          | {{bs}}
+          input(type='number',ng-model='pokeModel.baseStats[$index]',ng-change='updateStat($index)')
+    h4 IndividualValue
+      ul
+        li(ng-repeat='iv in pokeModel.individualValue track by $index')
+          | {{iv}}
+          input(type='number',ng-model='pokeModel.individualValue[$index]',ng-change='updateStat($index)')
+    h4 EffortValue
+      ul
+        li(ng-repeat='ev in pokeModel.effortValue track by $index')
+          | {{ev}}
+          input(type='number',ng-model='pokeModel.effortValue[$index]',ng-change='updateStat($index)')
+    
+    h4 Stats
+      ul
+        li(ng-repeat='s in pokeModel.stats track by $index')
+          | {{s}}
   
 block scripts
   script(src="http://localhost:8080/js/index.js")
