@@ -1,33 +1,48 @@
 extends ./layout.jade
 
 block styles
-  link(rel='stylesheet',href='/css/angular-material.min.css')
+  link(rel='stylesheet',href='./css/angular-material.min.css')
 
 block body
   div(ng-app='myApp',ng-controller='poke-calcController')
-    h4 Name
-      md-autocomplete(md-delay=500,md-selected-item='pokeModel.name',md-search-text='searchText',md-items='poke in getMatcheNames(searchText)',md-item-text='poke',md-selected-item-change='updateBaseStats()',placeholder='Name')
-        span(md-highlight-text='searchText') {{poke}}
-    h4 BaseStats
-      ul
-        li(ng-repeat='bs in pokeModel.baseStats track by $index')
-          | {{bs}}
-          input(type='number',ng-model='pokeModel.baseStats[$index]',ng-change='updateStat($index)')
-    h4 IndividualValue
-      ul
-        li(ng-repeat='iv in pokeModel.individualValue track by $index')
-          | {{iv}}
-          input(type='number',ng-model='pokeModel.individualValue[$index]',ng-change='updateStat($index)')
-    h4 EffortValue
-      ul
-        li(ng-repeat='ev in pokeModel.effortValue track by $index')
-          | {{ev}}
-          input(type='number',ng-model='pokeModel.effortValue[$index]',ng-change='updateStat($index)')
+    div(layout-gt-md='row',layout='column',layout-padding)
+      md-card(flex='25', flex-order-gt-md='1')
+        md-card-content
+          h3.md-headline ポケモン
+          md-autocomplete(flex,md-delay=500,md-selected-item='pokeModel.name',md-search-text='searchText',md-items='poke in getMatcheNames(searchText)',md-item-text='poke',md-selected-item-change='updateBaseStats()',md-floating-label='ポケモン名')
+            span(md-highlight-text='searchText',ng-bind='poke')
+          md-input-container
+            label レベル
+            input(type='number',min='1',max='100',ng-model='pokeModel.level',ng-change='updateStats()')
+          md-select(ng-model='pokeModel.nature',placeholder='性格')
+            md-option(ng-value='opt',ng-repeat='opt in pokeModel.pokeData.natName',ng-bind='opt + getNatCorrectionString($index)')
+          md-input-container
+            label めざぱ
+            input(type='text',ng-model='mezapa',disabled)
+          md-button#clipBtn.md-primary.md-raised(data-clipboard-text='{{result}}') クリップボードに結果をコピー
+          
+      md-card(flex='15', flex-order-gt-md='2')
+        md-card-content
+          h3.md-headline 個体値
+          md-input-container(ng-repeat='iv in pokeModel.individualValue track by $index')
+            label(ng-bind='pokeModel.statsName[$index]')
+            input(type='number',min='0',max='31',ng-model='pokeModel.individualValue[$index]',ng-change='updateIndividualValue($index)')
+            
+      md-card(flex, flex-order-gt-md='3')
+        md-card-content
+          h3.md-headline 努力値
+          div(layout='row',ng-repeat='ev in pokeModel.effortValue track by $index')
+            md-input-container(flex='20')
+              label(ng-bind='pokeModel.statsName[$index]')
+              input(type='number',min='0',max='252',step='4',ng-model='pokeModel.effortValue[$index]',ng-change='updateStat($index)')
+            md-slider(flex,ng-model='pokeModel.effortValue[$index]',min='0',max='252',step='4',ng-change='updateEffortValue($index)')
+
+      md-card(flex='15', flex-order-gt-md='4')
+        md-card-content
+          h3.md-headline 能力値
+          md-input-container(ng-repeat='iv in pokeModel.stats track by $index')
+            label(ng-bind='pokeModel.statsName[$index]')
+            input(type='number',ng-model='pokeModel.stats[$index]')
     
-    h4 Stats
-      ul
-        li(ng-repeat='s in pokeModel.stats track by $index')
-          | {{s}}
-  
 block scripts
-  script(src="http://localhost:8080/js/index.js")
+  script(src="./js/index.js")

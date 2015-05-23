@@ -57,6 +57,7 @@ module.exports = {
     // configuration
     cache               : true,
     debug: false,
+    devtool: false,
     stats: {
       colors: true,
       reasons: false
