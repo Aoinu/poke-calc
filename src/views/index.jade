@@ -7,19 +7,19 @@ block body
   div(ng-app='myApp',ng-controller='poke-calcController')
     div(layout-gt-md='row',layout='column',layout-padding)
       md-card(flex='25', flex-order-gt-md='1')
-        md-card-content
+        md-card-content(layout="column")
           h3.md-headline ポケモン
-          md-autocomplete(flex,md-delay=500,md-selected-item='pokeModel.name',md-search-text='searchText',md-items='poke in getMatcheNames(searchText)',md-item-text='poke',md-selected-item-change='updateBaseStats()',md-floating-label='ポケモン名')
+          md-autocomplete(flex,md-selected-item='pokeModel.name',md-search-text='searchText',md-items='poke in getMatcheNames(searchText)',md-item-text='poke',md-selected-item-change='updateBaseStats()',md-floating-label='ポケモン名')
             span(md-highlight-text='searchText',ng-bind='poke')
-          md-input-container
+          md-input-container(flex)
             label レベル
             input(type='number',min='1',max='100',ng-model='pokeModel.level',ng-change='updateStats()')
-          md-select(ng-model='pokeModel.nature',placeholder='性格')
+          md-select(flex,ng-model='pokeModel.nature',placeholder='性格')
             md-option(ng-value='opt',ng-repeat='opt in pokeModel.pokeData.natName',ng-bind='opt + getNatCorrectionString($index)')
-          md-input-container
+          md-input-container(flex)
             label めざぱ
             input(type='text',ng-model='mezapa',disabled)
-          md-button#clipBtn.md-primary.md-raised(data-clipboard-text='{{result}}') クリップボードに結果をコピー
+          md-button#clipBtn.md-primary.md-raised(flex,data-clipboard-text='{{result}}') クリップボードに結果をコピー
           
       md-card(flex='15', flex-order-gt-md='2')
         md-card-content
@@ -29,13 +29,14 @@ block body
             input(type='number',min='0',max='31',ng-model='pokeModel.individualValue[$index]',ng-change='updateIndividualValue($index)')
             
       md-card(flex, flex-order-gt-md='3')
-        md-card-content
+        md-card-content(layout='column')
           h3.md-headline 努力値
-          div(layout='row',ng-repeat='ev in pokeModel.effortValue track by $index')
-            md-input-container(flex='20')
-              label(ng-bind='pokeModel.statsName[$index]')
-              input(type='number',min='0',max='252',step='4',ng-model='pokeModel.effortValue[$index]',ng-change='updateStat($index)')
-            md-slider(flex,ng-model='pokeModel.effortValue[$index]',min='0',max='252',step='4',ng-change='updateEffortValue($index)')
+          div(flex,ng-repeat='ev in pokeModel.effortValue track by $index')
+            div(layout='row')
+              md-slider(flex='80',ng-model='pokeModel.effortValue[$index]',min='0',max='252',step='4',ng-change='updateEffortValue($index)')
+              md-input-container(flex='20')
+                label(ng-bind='pokeModel.statsName[$index]')
+                input(type='number',min='0',max='252',step='4',ng-model='pokeModel.effortValue[$index]',ng-change='updateStat($index)')
 
       md-card(flex='15', flex-order-gt-md='4')
         md-card-content
